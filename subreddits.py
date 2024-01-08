@@ -1,5 +1,0 @@
-names = [
-    "MachineLearning",
-    "StableDiffusion",
-    "comfyui",
-]

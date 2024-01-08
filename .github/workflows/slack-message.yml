@@ -9,6 +9,9 @@ on:
 jobs:
   trigger:
     runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        subreddit: ['MachineLearning', 'StableDiffusion', 'comfyui']
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python 3.10
@@ -18,4 +21,4 @@ jobs:
       - name: Install Packages
         run: pip install -r requirements.txt
       - name: Run the script
-        run: python main.py --token ${{ secrets.SLACK_OAUTH_TOKEN }} --channel-id ${{ secrets.SLACK_CHANNEL_ID }}
+        run: python main.py --token ${{ secrets.SLACK_OAUTH_TOKEN }} --channel-id ${{ secrets.SLACK_CHANNEL_ID }} --subreddit ${{ matrix.subreddit }}
