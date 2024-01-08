@@ -55,13 +55,16 @@ for name in subreddits.names:
         post_infos.append((upvotes, post_info))
 
     # Sort by upvotes.
-    post_infos = [f"{i+1:2d}. {t[1]}" for i, t in enumerate(sorted(post_infos, reverse=True))]
-    # Add the title and show `n_posts` at most.
-    post_infos = [f"*Today's Hot Posts of {name} Subreddit*\n"] + post_infos[:args.n_posts]
+    post_infos = [f"{len(post_infos)-i}. {s}" for i, (_, s) in enumerate(sorted(post_infos))]
+    # Add the title.
+    post_infos.append(f"*Today's Hot Posts of {name} Subreddit*\n")
+    # Show `n_posts` at most.
+    post_infos = post_infos[::-1][:args.n_posts+1]
 
-    # Send the post info to the slack channel.
+   # Send the post info to the slack channel.
     try:
-        response = client.chat_postMessage(channel=args.channel_id, text="\n".join(post_infos))
+        text = "\n".join(post_infos)
+        response = client.chat_postMessage(channel=args.channel_id, text=text)
     except SlackApiError as e:
         assert e.response["ok"] is False
         assert e.response["error"]
