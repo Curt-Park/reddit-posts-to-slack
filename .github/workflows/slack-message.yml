@@ -18,4 +18,4 @@ jobs:
       - name: Install Packages
         run: pip install -r requirements.txt
       - name: Run the script
-        run: python main.py --token {{ secrets.SLACK_OAUTH_TOKEN }} --channel-id {{ secrets.SLACK_CHANNEL_ID }}
+        run: python main.py --token ${{ secrets.SLACK_OAUTH_TOKEN }} --channel-id ${{ secrets.SLACK_CHANNEL_ID }}
