@@ -35,6 +35,7 @@ for name in subreddits.names:
     # Get the important information from all posts.
     post_infos: list[str] = [f"*Today's Hot Posts of {name} Subreddit*\n"]
     for i, post in enumerate(posts):
+        # It will show `args.n_posts` at most.
         if i == args.n_posts:
             break
         # Fetch the post info.
