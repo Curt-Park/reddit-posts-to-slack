@@ -4,6 +4,7 @@
 - Contact: www.jwpark.co.kr@gmail.com
 """
 import argparse
+
 import requests
 from bs4 import BeautifulSoup
 from slack_sdk import WebClient
@@ -12,7 +13,7 @@ from slack_sdk.errors import SlackApiError
 import subreddits
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--token", type=str,  help="Slack API Token")
+parser.add_argument("--token", type=str, help="Slack API Token")
 parser.add_argument("--channel-id", type=str, help="Slack Channel ID")
 parser.add_argument("--n-posts", type=int, default=20, help="Max Posts Number")
 args = parser.parse_args()
@@ -55,13 +56,15 @@ for name in subreddits.names:
         post_infos.append((upvotes, post_info))
 
     # Sort by upvotes.
-    post_infos = [f"{len(post_infos)-i}. {s}" for i, (_, s) in enumerate(sorted(post_infos))]
+    post_infos = [
+        f"{len(post_infos)-i}. {s}" for i, (_, s) in enumerate(sorted(post_infos))
+    ]
     # Add the title.
     post_infos.append(f"*Today's Hot Posts of {name} Subreddit*\n")
     # Show `n_posts` at most.
-    post_infos = post_infos[::-1][:args.n_posts+1]
+    post_infos = post_infos[::-1][: args.n_posts + 1]
 
-   # Send the post info to the slack channel.
+    # Send the post info to the slack channel.
     try:
         text = "\n".join(post_infos)
         response = client.chat_postMessage(channel=args.channel_id, text=text)
