@@ -1,3 +1,5 @@
 names = [
+    "MachineLearning",
     "StableDiffusion",
+    "comfyui",
 ]
