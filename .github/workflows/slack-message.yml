@@ -1,0 +1,21 @@
+name: 'Slack Message for Reddit Hot Posts'
+
+on:
+  workflow_dispatch:
+    # gh workflow run .github/workflows/slack-message.yml
+  schedule:
+    - cron: '0 18 * * *'  # 09:00 AM KST everyday.
+
+jobs:
+  trigger:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - name: Install Packages
+        run: pip install -r requirements.txt
+      - name: Run the script
+        run: python main.py --token {{ secrets.SLACK_OAUTH_TOKEN }} --channel-id {{ secrets.SLACK_CHANNEL_ID }}
