@@ -12,3 +12,6 @@ The meesages contain information of the subreddits' hot posts.
 - `SLACK_CHANNEL_ID`
 - `SLACK_OAUTH_TOKEN`
 6. Add subreddit names in `subreddits.py`.
+
+## Looks like...
+<img width="1213" src="https://github.com/Curt-Park/reddit-posts-to-slack/assets/14961526/b7945576-daca-428e-9d30-b2a66c9764c6">
