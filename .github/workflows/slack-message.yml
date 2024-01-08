@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     # gh workflow run .github/workflows/slack-message.yml
   schedule:
-    - cron: '0 18 * * *'  # 09:00 AM KST everyday.
+    - cron: '0 12 * * *'  # 09:00 AM KST everyday.
 
 jobs:
   trigger:
