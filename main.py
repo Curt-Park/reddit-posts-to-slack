@@ -14,6 +14,7 @@ import subreddits
 parser = argparse.ArgumentParser()
 parser.add_argument("--token", type=str,  help="Slack API Token")
 parser.add_argument("--channel-id", type=str, help="Slack Channel ID")
+parser.add_argument("--n-posts", type=int, default=20, help="Max Posts Number")
 args = parser.parse_args()
 
 client = WebClient(token=args.token)
@@ -34,6 +35,8 @@ for name in subreddits.names:
     # Get the important information from all posts.
     post_infos: list[str] = [f"*Today's Hot Posts of {name} Subreddit*\n"]
     for i, post in enumerate(posts):
+        if i == args.n_posts:
+            break
         # Fetch the post info.
         title = post.find("a", class_="title").text
         upvotes = post.find("div", class_="score unvoted").text
