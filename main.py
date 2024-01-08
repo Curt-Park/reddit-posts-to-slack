@@ -33,25 +33,31 @@ for name in subreddits.names:
     posts = soup.find_all("div", class_="thing")
 
     # Get the important information from all posts.
-    post_infos: list[str] = [f"*Today's Hot Posts of {name} Subreddit*\n"]
+    post_infos: list[tuple[int, str]] = []
     for i, post in enumerate(posts):
-        # It will show `args.n_posts` at most.
-        if i == args.n_posts:
-            break
+        # Skip promotion.
+        promotion = post.find("p", class_="tagline").text.startswith("promoted")
+        if promotion:
+            continue
+
         # Fetch the post info.
         title = post.find("a", class_="title").text
         upvotes = post.find("div", class_="score unvoted").text
+        upvotes = upvotes.isdigit() and int(upvotes) or 0
         post_url = post.find("a", class_="title")["href"]
-        # comments = post.find("a", class_="comments").text
-        # date = post.find("p", class_="tagline").find("time")["title"]
 
         # Post may be redirected to a number of url types.
         if not post_url.startswith("http"):
             post_url = "https://old.reddit.com" + post_url
 
         # Append the post info.
-        post_info = f"{i+1:2d}. <{post_url}|{title}> [Upvotes {upvotes}]"
-        post_infos.append(post_info)
+        post_info = f"<{post_url}|{title}> [Upvotes {upvotes}]"
+        post_infos.append((upvotes, post_info))
+
+    # Sort by upvotes.
+    post_infos = [f"{i+1:2d}. {t[1]}" for i, t in enumerate(sorted(post_infos, reverse=True))]
+    # Add the title and show `n_posts` at most.
+    post_infos = [f"*Today's Hot Posts of {name} Subreddit*\n"] + post_infos[:args.n_posts]
 
     # Send the post info to the slack channel.
     try:
