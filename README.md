@@ -14,4 +14,4 @@ The meesages contain information of the subreddits' hot posts.
 6. Add subreddit names in `subreddits.py`.
 
 ## Looks like...
-<img width="1213" src="https://github.com/Curt-Park/reddit-posts-to-slack/assets/14961526/b7945576-daca-428e-9d30-b2a66c9764c6">
+<img width="1221" src="https://github.com/Curt-Park/reddit-posts-to-slack/assets/14961526/4a34eb53-92b5-45c7-abe4-510a7cc6cfa3">
