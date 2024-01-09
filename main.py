@@ -56,7 +56,7 @@ for i, post in enumerate(posts):
 # Sort by upvotes.
 post_infos = [f"{len(post_infos)-i}. {s}" for i, (_, s) in enumerate(sorted(post_infos))]
 # Add the title.
-post_infos.append(f"*Today's Hot Posts of {name} Subreddit*\n")
+post_infos.append(f"*Today's Hot Posts of {args.subreddit} Subreddit*\n")
 # Show `n_posts` at most.
 post_infos = post_infos[::-1][: args.n_posts + 1]
 
